@@ -48,7 +48,8 @@ def import_data():
                     nutrients=item.get("nutrients"),
                     serves=item.get("serves"),
                     url=item.get("URL"), # Map JSON 'URL' to model 'url'
-                    ingredients=item.get("ingredients")
+                    ingredients=item.get("ingredients"),
+                    instructions=item.get("instructions")
                 )
                 db.add(recipe)
             

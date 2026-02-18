@@ -1,4 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, text, func
 from typing import Optional, List
@@ -170,6 +172,52 @@ def get_random_recipe(db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="No recipes found")
     return recipe
 
+@app.get("/api/recipes/{recipe_id}/image")
+def get_recipe_image(recipe_id: int, db: Session = Depends(get_db)):
+    recipe = db.query(models.Recipe).filter(models.Recipe.id == recipe_id).first()
+    if not recipe:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+
+    # 1. Return cached image if available
+    if recipe.image_url:
+        return RedirectResponse(url=recipe.image_url)
+
+    # 2. If no URL to scrape, return 404 (frontend will fallback)
+    if not recipe.url:
+        raise HTTPException(status_code=404, detail="No source URL to scrape")
+
+    # 3. Scrape the image
+    try:
+        import requests
+        from bs4 import BeautifulSoup
+
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+        response = requests.get(recipe.url, headers=headers, timeout=5)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Try og:image first
+        og_image = soup.find("meta", property="og:image")
+        image_url = og_image["content"] if og_image else None
+
+        # Fallback to twitter:image
+        if not image_url:
+            twitter_image = soup.find("meta", property="twitter:image")
+            image_url = twitter_image["content"] if twitter_image else None
+
+        if image_url:
+            # Cache it!
+            recipe.image_url = image_url
+            db.commit()
+            return RedirectResponse(url=image_url)
+        else:
+            raise HTTPException(status_code=404, detail="No image found on page")
+
+    except Exception as e:
+        print(f"Scraping failed for {recipe.url}: {e}")
+        raise HTTPException(status_code=404, detail="Scraping failed")
+
 @app.get("/api/recipes/{recipe_id}", response_model=schemas.Recipe)
 def get_recipe(recipe_id: int, db: Session = Depends(get_db)):
     recipe = db.query(models.Recipe).filter(models.Recipe.id == recipe_id).first()
@@ -224,6 +272,21 @@ def search_pantry(search: schemas.PantrySearch, db: Session = Depends(get_db)):
     results.sort(key=lambda x: x.match_count, reverse=True)
     
     return results[:20] # Return top 20 matches
+
+@app.get("/api/cuisines/counts")
+def get_cuisine_counts(db: Session = Depends(get_db)):
+    # Aggregate counts by cuisine
+    # Returns: [{"cuisine": "Italian", "count": 10}, ...]
+    counts = db.query(models.Recipe.cuisine, func.count(models.Recipe.id)).group_by(models.Recipe.cuisine).all()
+    
+    # Format as list of dicts
+    # Handle potentially null cuisines if any
+    result = []
+    for cuisine_name, count in counts:
+        if cuisine_name:
+            result.append({"cuisine": cuisine_name, "count": count})
+            
+    return result
 
 # Meal Planner Endpoints
 @app.post("/api/meal-plans", response_model=schemas.MealPlan)

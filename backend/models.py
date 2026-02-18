@@ -17,6 +17,8 @@ class Recipe(Base):
     serves = Column(String, nullable=True)
     url = Column(String, nullable=True)
     ingredients = Column(JSON, nullable=True)
+    instructions = Column(JSON, nullable=True)
+    image_url = Column(String, nullable=True)
 
 class MealPlan(Base):
     __tablename__ = "meal_plans"

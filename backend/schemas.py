@@ -13,6 +13,8 @@ class RecipeBase(BaseModel):
     serves: Optional[str] = None
     url: Optional[str] = None
     ingredients: Optional[list[str]] = None
+    instructions: Optional[list[str]] = None
+    image_url: Optional[str] = None
 
 class RecipeCreate(RecipeBase):
     pass

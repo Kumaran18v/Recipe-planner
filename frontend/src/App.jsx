@@ -7,6 +7,7 @@ import Favorites from './pages/Favorites';
 import ChefBot from './components/ChefBot';
 
 import CuisineMap from './components/CuisineMap';
+import CookingMode from './pages/CookingMode';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/recipes" element={<RecipeTable />} />
           <Route path="/recipes/:id" element={<RecipeDetail />} />
+          <Route path="/recipes/:id/cook" element={<CookingMode />} />
           <Route path="/planner" element={<MealPlanner />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/map" element={<CuisineMap />} />

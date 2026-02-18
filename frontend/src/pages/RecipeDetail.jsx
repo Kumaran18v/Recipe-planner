@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getRecipeById, addFavorite, removeFavorite, getFavorites } from '../api';
-import { ArrowLeft, Clock, Users, Star, ExternalLink, ChefHat, Flame, List, AlignLeft, PieChart as PieChartIcon, Heart } from 'lucide-react';
+import { ArrowLeft, Clock, Users, Star, ExternalLink, ChefHat, Flame, List, AlignLeft, PieChart as PieChartIcon, Heart, Play } from 'lucide-react';
+import { getRecipeImage, getFallbackImage } from '../utils/imageUtils';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
@@ -81,10 +83,20 @@ const RecipeDetail = () => {
     return (
         <div className="min-h-screen bg-bg-dark text-text-light font-body pb-20">
             {/* Header / Hero */}
-            <div className="relative h-[40vh] bg-bg-surface overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-bg-dark z-10"></div>
-                {/* Abstract Background pattern since we don't have real images */}
-                <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+            <div className="relative h-[50vh] bg-bg-surface overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src={getRecipeImage(recipe.cuisine, recipe.id)}
+                        alt={recipe.title}
+                        className="w-full h-full object-cover opacity-60"
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = getFallbackImage(recipe.cuisine, recipe.id);
+                        }}
+                    />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-dark/50 to-bg-dark z-10"></div>
+                {/* Abstract Background pattern overlay */}
 
                 <div className="container mx-auto px-4 h-full flex flex-col justify-end pb-8 relative z-20">
                     <button
@@ -183,24 +195,33 @@ const RecipeDetail = () => {
 
                     {/* Instructions */}
                     <section className="bg-bg-card/50 p-8 rounded-2xl border border-white/5">
-                        <h3 className="text-2xl font-heading font-bold mb-6 flex items-center gap-3">
-                            <AlignLeft className="text-primary" /> Instructions
-                        </h3>
-                        <p className="text-text-gray mb-4">
-                            For detailed step-by-step instructions, please visit the original recipe:
-                        </p>
-                        {recipe.url ? (
-                            <a
-                                href={recipe.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-primary hover:underline flex items-center gap-1"
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-2xl font-heading font-bold flex items-center gap-3">
+                                <AlignLeft className="text-primary" /> Instructions
+                            </h3>
+                            <button
+                                onClick={() => navigate(`/recipes/${recipe.id}/cook`)}
+                                className="flex items-center gap-2 bg-gradient-to-r from-primary to-amber-500 text-bg-dark font-bold px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 transition-all"
                             >
-                                Click here to view full instructions <ExternalLink size={14} />
-                            </a>
-                        ) : (
-                            <p className="text-slate-500 italic">No source URL available.</p>
-                        )}
+                                <Play size={20} fill="currentColor" /> Start Cooking Mode
+                            </button>
+                        </div>
+
+                        <div className="space-y-4">
+                            <p className="text-text-gray">
+                                Ready to cook? Click the button above for a step-by-step guide.
+                            </p>
+                            {recipe.url && (
+                                <a
+                                    href={recipe.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-primary hover:underline flex items-center gap-1 text-sm"
+                                >
+                                    View original source <ExternalLink size={14} />
+                                </a>
+                            )}
+                        </div>
                     </section>
                 </div>
 

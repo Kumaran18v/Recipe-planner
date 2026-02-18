@@ -1,0 +1,37 @@
+
+C:\Users\Kumaran\recipe-api\frontend\src\components\ChefBot.jsx
+  4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\components\CuisineMap.jsx
+  4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\components\Hero.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\components\PantryFilter.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\components\RecipeDrawer.jsx
+  1:17  error  'useState' is defined but never used. Allowed unused vars must match /^[A-Z_]/u   no-unused-vars
+  1:27  error  'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\components\RecipeTable.jsx
+  21:20  error    'setSortBy' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                    no-unused-vars
+  64:8   warning  React Hook useEffect has a missing dependency: 'loadData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\Kumaran\recipe-api\frontend\src\pages\Favorites.jsx
+  5:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\pages\LandingPage.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\pages\MealPlanner.jsx
+   4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u            no-unused-vars
+  13:12  error  'loading' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  60:19  error  'created' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Kumaran\recipe-api\frontend\src\pages\RecipeDetail.jsx
+  5:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+✖ 14 problems (13 errors, 1 warning)
+

@@ -3,6 +3,7 @@ import { Search, Filter, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchRecipes, searchRecipes, searchPantry } from '../api';
 import PantryFilter from './PantryFilter';
+import { getRecipeImage, getFallbackImage } from '../utils/imageUtils';
 
 const RecipeTable = () => {
     const navigate = useNavigate();
@@ -282,10 +283,21 @@ const RecipeTable = () => {
                             onClick={() => handleRowClick(recipe)}
                             className="group relative bg-bg-card/50 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer hover:-translate-y-1"
                         >
-                            {/* Decorative Header/Placeholder Image */}
-                            <div className="h-32 bg-gradient-to-br from-gray-800 to-black relative overflow-hidden">
-                                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <div className="absolute bottom-3 left-4">
+                            {/* Decorative Header/Image */}
+                            <div className="h-48 bg-gray-800 relative overflow-hidden">
+                                <img
+                                    src={getRecipeImage(recipe.cuisine, recipe.id)}
+                                    alt={recipe.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    loading="lazy"
+                                    onError={(e) => {
+                                        e.target.onerror = null; // Prevent infinite loop
+                                        e.target.src = getFallbackImage(recipe.cuisine, recipe.id);
+                                    }}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+
+                                <div className="absolute top-3 left-4">
                                     <span className="text-xs font-bold px-2 py-1 rounded-full bg-black/60 text-white border border-white/10 uppercase tracking-wider backdrop-blur-sm">
                                         {recipe.cuisine || "World"}
                                     </span>

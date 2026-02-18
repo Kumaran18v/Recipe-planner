@@ -67,6 +67,16 @@ export const getMealPlans = async () => {
     }
 };
 
+export const getCuisineCounts = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/cuisines/counts`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching cuisine counts:", error);
+        return [];
+    }
+};
+
 export const createMealPlan = async (mealPlan) => {
     try {
         const response = await axios.post(`${API_URL}/meal-plans`, mealPlan);

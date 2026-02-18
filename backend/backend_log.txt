@@ -1,9 +1,67 @@
 C:\Users\Kumaran\AppData\Local\Programs\Python\Python312\Lib\site-packages\pydantic\_internal\_config.py:383: UserWarning: Valid config keys have changed in V2:
 * 'orm_mode' has been renamed to 'from_attributes'
   warnings.warn(message, UserWarning)
-INFO:     Started server process [11544]
+INFO:     Started server process [29100]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-DEBUG SEARCH: title=None, cuisine=Desserts, diet=None
-INFO:     127.0.0.1:51789 - "GET /api/recipes/search?cuisine=Desserts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52497 - "GET /api/cuisines/counts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52499 - "GET /api/recipes?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51814 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58391 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55158 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61841 - "GET /api/recipes/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58483 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63443 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58483 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63443 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64461 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62061 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51772 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51772 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51772 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51772 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51772 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52060 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60494 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60494 - "GET /api/recipes/144 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60494 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60494 - "GET /api/recipes/144 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54175 - "GET /api/recipes/144 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58862 - "GET /api/recipes/144 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52657 - "GET /api/recipes/144 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52657 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52657 - "GET /api/recipes/144 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52657 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54780 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54780 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51285 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54094 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56665 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49935 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49935 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54971 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65302 - "GET /api/recipes/81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49935 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49935 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64229 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49935 - "GET /api/recipes/365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64229 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49935 - "GET /api/recipes/365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49935 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60348 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60366 - "GET /api/recipes?page=1&limit=10&sort_by=rating&sort_order=desc HTTP/1.1" 200 OK

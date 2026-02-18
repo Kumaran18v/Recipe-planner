@@ -57,7 +57,7 @@ const MealPlanner = () => {
                 meal_type: selectedSlot.meal_type,
                 recipe_id: recipe.id
             };
-            const created = await createMealPlan(newPlan);
+            await createMealPlan(newPlan);
             // Refresh or update local state
             // The backend returns the created object, but it might not populate 'recipe' relation immediately 
             // unless backend handles it or we reload. 
@@ -91,6 +91,10 @@ const MealPlanner = () => {
     const getMealForSlot = (day, type) => {
         return mealPlans.find(plan => plan.date === day && plan.meal_type === type);
     };
+
+    if (loading) {
+        return <div className="text-center text-white py-20">Loading meal plans...</div>;
+    }
 
     return (
         <div className="container py-12 min-h-screen">
