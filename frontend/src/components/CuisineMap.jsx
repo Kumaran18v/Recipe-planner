@@ -94,7 +94,7 @@ const CuisineMap = () => {
                                                         transition: "all 250ms",
                                                         stroke: "#0F172A",
                                                         strokeWidth: 0.5,
-                                                        opacity: hasCuisine ? 0.8 : 0.4
+                                                        opacity: hasCuisine ? (isHovered ? 1 : 0.8) : 0.4
                                                     },
                                                     hover: {
                                                         fill: hasCuisine ? "#6366F1" : "#334155",
