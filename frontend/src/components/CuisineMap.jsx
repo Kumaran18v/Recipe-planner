@@ -1,32 +1,28 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, Globe, ArrowRight } from "lucide-react";
+import { ChevronLeft, Globe, ArrowRight, Utensils, Coffee, Pizza, Croissant, Soup, Cookie, Cake, Fish, Drumstick } from "lucide-react";
 import { motion } from "framer-motion";
 
-const regions = [
-    { name: "Italian", code: "ITA", description: "Pasta, Pizza, and everything in between.", color: "bg-emerald-500" },
-    { name: "Mexican", code: "MEX", description: "Bold flavors, tacos, and spicy salsas.", color: "bg-orange-500" },
-    { name: "Indian", code: "IND", description: "Rich spices, curries, and aromatic rice.", color: "bg-amber-500" },
-    { name: "Japanese", code: "JPN", description: "Fresh sushi, ramen, and delicate flavors.", color: "bg-red-500" },
-    { name: "French", code: "FRA", description: "Elegant pastries, sauces, and fine dining.", color: "bg-blue-500" },
-    { name: "Chinese", code: "CHN", description: "Stir-fries, dim sum, and regional classics.", color: "bg-red-600" },
-    { name: "Thai", code: "THA", description: "Balance of sweet, sour, salty, and spicy.", color: "bg-blue-600" },
-    { name: "Greek", code: "GRC", description: "Mediterranean fresh, feta, and olives.", color: "bg-sky-500" },
-    { name: "Spanish", code: "ESP", description: "Paella, tapas, and vibrant seafood.", color: "bg-yellow-500" },
-    { name: "American", code: "USA", description: "Burgers, BBQ, and comfort classics.", color: "bg-indigo-500" },
-    { name: "British", code: "GBR", description: "Pies, roasts, and afternoon tea.", color: "bg-blue-700" },
-    { name: "German", code: "DEU", description: "Sausages, pretzels, and hearty stews.", color: "bg-yellow-600" },
-    { name: "Korean", code: "KOR", description: "Kimchi, BBQ, and bold fermentations.", color: "bg-rose-500" },
-    { name: "Vietnamese", code: "VNM", description: "Fresh herbs, Pho, and light broths.", color: "bg-green-600" },
-    { name: "Turkish", code: "TUR", description: "Kebabs, baklava, and Middle Eastern delights.", color: "bg-rose-600" },
-    { name: "Brazilian", code: "BRA", description: "Grilled meats, Feijoada, and tropical fruit.", color: "bg-green-500" }
+const categories = [
+    { name: "Desserts", icon: <Cake size={20} />, description: "Sweet treats, cakes, and all-time favorites.", color: "bg-rose-500", count: 101 },
+    { name: "Breads", icon: <Croissant size={20} />, description: "Freshly baked loaves, rolls, and artisan breads.", color: "bg-amber-600", count: 105 },
+    { name: "Cookies and Bars", icon: <Cookie size={20} />, description: "Classic cookies, brownies, and snack bars.", color: "bg-orange-500", count: 91 },
+    { name: "Amish and Mennonite", icon: <Utensils size={20} />, description: "Traditional, hearty comfort food favorites.", color: "bg-emerald-600", count: 112 },
+    { name: "Breakfast and Brunch", icon: <Coffee size={20} />, description: "Start your day with morning classics.", color: "bg-blue-500", count: 63 },
+    { name: "Soups", icon: <Soup size={20} />, description: "Warm, comforting soups and hearty stews.", color: "bg-indigo-500", count: 48 },
+    { name: "Cakes", icon: <Cake size={20} />, description: "Special occasion cakes and simple bakes.", color: "bg-pink-500", count: 58 },
+    { name: "Muffins", icon: <Croissant size={20} />, description: "Perfectly portioned breakfast muffins.", color: "bg-yellow-600", count: 55 },
+    { name: "Quick Breads", icon: <Croissant size={20} />, description: "Easy, no-yeast breads and loaves.", color: "bg-orange-600", count: 52 },
+    { name: "Pancakes", icon: <Utensils size={20} />, description: "Fluffy pancakes and morning griddle cakes.", color: "bg-amber-400", count: 42 },
+    { name: "Fish and Seafood", icon: <Fish size={20} />, description: "Fresh catches and seafood specialties.", color: "bg-cyan-500", count: 63 },
+    { name: "Beef", icon: <Drumstick size={20} />, description: "Savory beef dishes and hearty roasts.", color: "bg-red-600", count: 32 }
 ];
 
 const CuisineMap = () => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
 
-    const filteredRegions = regions.filter(r =>
+    const filteredCategories = categories.filter(r =>
         r.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -42,10 +38,10 @@ const CuisineMap = () => {
                             <ChevronLeft size={16} /> Back to Home
                         </button>
                         <h1 className="text-5xl md:text-7xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-500">
-                            Cuisine Explorer
+                            Flavor Explorer
                         </h1>
                         <p className="text-text-gray mt-4 max-w-xl text-lg">
-                            Travel the world through your plate. Select a region to discover its signature culinary masterpieces.
+                            Discover recipes by category. We've matched our explorer to the actual flavors in our database.
                         </p>
                     </div>
 
@@ -53,7 +49,7 @@ const CuisineMap = () => {
                         <div className="relative">
                             <input
                                 type="text"
-                                placeholder="Search cuisines..."
+                                placeholder="Search flavors..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary/50 text-white backdrop-blur-md"
@@ -63,38 +59,46 @@ const CuisineMap = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {filteredRegions.map((region, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredCategories.map((cat, index) => (
                         <motion.div
-                            key={region.code}
+                            key={cat.name}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.05 }}
                             whileHover={{ y: -5 }}
-                            onClick={() => navigate(`/recipes?cuisine=${region.name}`)}
+                            onClick={() => navigate(`/recipes?cuisine=${cat.name}`)}
                             className="group cursor-pointer relative glass-panel rounded-3xl p-8 border border-white/10 overflow-hidden hover:border-primary/30 transition-all duration-300 h-full flex flex-col"
                         >
-                            <div className={`absolute top-0 right-0 w-24 h-24 blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity rounded-full ${region.color}`} />
+                            <div className={`absolute top-0 right-0 w-32 h-32 blur-[70px] opacity-20 group-hover:opacity-40 transition-opacity rounded-full ${cat.color}`} />
 
-                            <div className="mb-6">
-                                <span className="text-xs font-bold tracking-widest text-primary uppercase">{region.code}</span>
-                                <h3 className="text-2xl font-heading font-bold mt-1 text-white group-hover:text-primary transition-colors">{region.name}</h3>
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="p-3 bg-white/5 rounded-2xl border border-white/10 text-primary group-hover:scale-110 transition-transform">
+                                    {cat.icon}
+                                </div>
+                                <span className="bg-white/5 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-slate-400 border border-white/5">
+                                    {cat.count} RECIPES
+                                </span>
+                            </div>
+
+                            <div className="mb-4">
+                                <h3 className="text-2xl font-heading font-bold text-white group-hover:text-primary transition-colors">{cat.name}</h3>
                             </div>
 
                             <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">
-                                {region.description}
+                                {cat.description}
                             </p>
 
-                            <div className="flex items-center gap-2 text-primary font-medium text-sm group-hover:translate-x-1 transition-transform">
-                                Explore Recipes <ArrowRight size={16} />
+                            <div className="flex items-center gap-2 text-primary font-medium text-sm group-hover:translate-x-1 transition-transform mt-auto">
+                                View Collection <ArrowRight size={16} />
                             </div>
                         </motion.div>
                     ))}
                 </div>
 
-                {filteredRegions.length === 0 && (
+                {filteredCategories.length === 0 && (
                     <div className="text-center py-24 glass-panel rounded-3xl border border-white/10">
-                        <p className="text-slate-500 italic">No cuisines found matching "{searchTerm}"</p>
+                        <p className="text-slate-500 italic">No flavors found matching "{searchTerm}"</p>
                     </div>
                 )}
             </div>

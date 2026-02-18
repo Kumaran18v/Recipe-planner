@@ -66,7 +66,7 @@ def search_recipes(
         query = query.filter(models.Recipe.title.ilike(f"%{title}%"))
     
     if cuisine:
-        query = query.filter(models.Recipe.cuisine == cuisine)
+        query = query.filter(models.Recipe.cuisine.ilike(f"%{cuisine}%"))
     
     # Advanced filtering helper
     def apply_operator_filter(query, column, value_str):

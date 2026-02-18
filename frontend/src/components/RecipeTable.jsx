@@ -93,7 +93,7 @@ const RecipeTable = () => {
                         <ChevronLeft size={14} /> Back to Home
                     </button>
                     <h1 className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-600">
-                        Culinary Explorer
+                        Flavor Explorer
                     </h1>
                 </div>
 
