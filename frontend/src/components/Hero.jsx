@@ -31,6 +31,7 @@ const Hero = () => {
                 <div className="hidden md:flex gap-8">
                     <button onClick={() => navigate('/')} className="text-white hover:text-primary transition-colors font-medium">Home</button>
                     <button onClick={() => navigate('/recipes')} className="text-white hover:text-primary transition-colors font-medium">Recipes</button>
+                    <button onClick={() => navigate('/map')} className="text-white hover:text-primary transition-colors font-medium">Explore Map</button>
                     <button onClick={() => navigate('/planner')} className="text-white hover:text-primary transition-colors font-medium">Meal Planner</button>
                     <button onClick={() => navigate('/favorites')} className="text-white hover:text-primary transition-colors font-medium">Favorites</button>
                 </div>

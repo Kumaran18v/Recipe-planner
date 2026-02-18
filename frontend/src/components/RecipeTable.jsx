@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, ChevronLeft, ChevronRight, Star } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchRecipes, searchRecipes, searchPantry } from '../api';
 import PantryFilter from './PantryFilter';
 
 const RecipeTable = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const initialCuisine = searchParams.get('cuisine') || '';
+
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
@@ -13,13 +16,13 @@ const RecipeTable = () => {
     const [total, setTotal] = useState(0);
 
     // Search State
-    const [searchMode, setSearchMode] = useState(false);
+    const [searchMode, setSearchMode] = useState(initialCuisine !== '');
     const [sortOrder, setSortOrder] = useState('desc');
     const [sortBy, setSortBy] = useState('rating');
 
     const [filters, setFilters] = useState({
         title: '',
-        cuisine: '',
+        cuisine: initialCuisine,
         rating: '',
         calories: '',
         total_time: '',
@@ -37,7 +40,7 @@ const RecipeTable = () => {
                 const data = await searchPantry(pantryIngredients);
                 setRecipes(data);
                 setTotal(data.length);
-            } else if (searchMode) {
+            } else if (searchMode || initialCuisine) {
                 const data = await searchRecipes(filters);
                 setRecipes(data);
                 setTotal(data.length);
@@ -56,6 +59,14 @@ const RecipeTable = () => {
     useEffect(() => {
         loadData();
     }, [page, limit, searchMode, sortBy, sortOrder, pantryMode, pantryIngredients]);
+
+    useEffect(() => {
+        if (initialCuisine) {
+            setFilters(prev => ({ ...prev, cuisine: initialCuisine }));
+            setSearchMode(true);
+            setPage(1);
+        }
+    }, [initialCuisine]);
 
     const handleSearch = (e) => {
         e.preventDefault();

@@ -6,6 +6,8 @@ import MealPlanner from './pages/MealPlanner';
 import Favorites from './pages/Favorites';
 import ChefBot from './components/ChefBot';
 
+import CuisineMap from './components/CuisineMap';
+
 function App() {
   return (
     <Router>
@@ -16,6 +18,7 @@ function App() {
           <Route path="/recipes/:id" element={<RecipeDetail />} />
           <Route path="/planner" element={<MealPlanner />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/map" element={<CuisineMap />} />
         </Routes>
         <ChefBot />
       </div>
