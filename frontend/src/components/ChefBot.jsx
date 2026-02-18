@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Bot, ChefHat } from 'lucide-react';
+import { MessageCircle, X, Send, ChefHat } from 'lucide-react';
 import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ChefBot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -91,13 +91,13 @@ const ChefBot = () => {
                             {messages.map((msg) => (
                                 <div
                                     key={msg.id}
-                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} `}
                                 >
                                     <div
-                                        className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user'
+                                        className={`max - w - [80 %] p - 3 rounded - 2xl text - sm leading - relaxed ${msg.sender === 'user'
                                                 ? 'bg-primary text-slate-900 rounded-tr-none font-medium'
                                                 : 'bg-white/10 text-slate-200 rounded-tl-none border border-white/5'
-                                            }`}
+                                            } `}
                                     >
                                         {msg.text}
                                     </div>
