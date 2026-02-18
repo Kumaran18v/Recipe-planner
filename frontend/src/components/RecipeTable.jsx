@@ -33,7 +33,7 @@ const RecipeTable = () => {
     const [pantryMode, setPantryMode] = useState(false);
     const [pantryIngredients, setPantryIngredients] = useState([]);
 
-    const loadData = async () => {
+    const loadData = async (currentFilters = filters) => {
         setLoading(true);
         try {
             if (pantryMode) {
@@ -41,7 +41,7 @@ const RecipeTable = () => {
                 setRecipes(data);
                 setTotal(data.length);
             } else if (searchMode || initialCuisine) {
-                const data = await searchRecipes(filters);
+                const data = await searchRecipes(currentFilters);
                 setRecipes(data);
                 setTotal(data.length);
             } else {
@@ -57,8 +57,11 @@ const RecipeTable = () => {
     };
 
     useEffect(() => {
-        loadData();
-    }, [page, limit, searchMode, sortBy, sortOrder, pantryMode, pantryIngredients]);
+        const timeoutId = setTimeout(() => {
+            loadData();
+        }, 300); // Debounce to prevent 500/spam when typing
+        return () => clearTimeout(timeoutId);
+    }, [page, limit, searchMode, sortBy, sortOrder, pantryMode, pantryIngredients, filters]);
 
     useEffect(() => {
         if (initialCuisine) {
@@ -69,7 +72,7 @@ const RecipeTable = () => {
     }, [initialCuisine]);
 
     const handleSearch = (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         setSearchMode(true);
         setPage(1);
         loadData();

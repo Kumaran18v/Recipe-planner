@@ -1,0 +1,9 @@
+C:\Users\Kumaran\AppData\Local\Programs\Python\Python312\Lib\site-packages\pydantic\_internal\_config.py:383: UserWarning: Valid config keys have changed in V2:
+* 'orm_mode' has been renamed to 'from_attributes'
+  warnings.warn(message, UserWarning)
+INFO:     Started server process [11544]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+DEBUG SEARCH: title=None, cuisine=Desserts, diet=None
+INFO:     127.0.0.1:51789 - "GET /api/recipes/search?cuisine=Desserts HTTP/1.1" 200 OK

@@ -3,7 +3,7 @@ from typing import Optional, Dict, Any
 
 class RecipeBase(BaseModel):
     cuisine: Optional[str] = None
-    title: str
+    title: Optional[str] = "Untitled"
     rating: Optional[float] = None
     prep_time: Optional[int] = None
     cook_time: Optional[int] = None
