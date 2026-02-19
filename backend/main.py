@@ -13,6 +13,11 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"status": "online", "message": "Recipe API is running"}
+
+
 import os
 
 origins_str = os.getenv("CORS_ORIGINS", "*")
