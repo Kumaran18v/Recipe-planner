@@ -19,6 +19,12 @@ function App() {
   const location = useLocation();
   const [isChatOpen, setIsChatOpen] = React.useState(false);
 
+  // Debugging: Check if API URL is set correctly
+  React.useEffect(() => {
+    console.log("🚀 Frontend Configured API URL:", import.meta.env.VITE_API_URL || "Defaulting to localhost (BAD if deployed)");
+    console.log("If this says localhost but you are on Vercel, you need to set VITE_API_URL in Vercel Settings and Redeploy.");
+  }, []);
+
   // Hide navbar on standalone pages
   const hideNavbar = ['/login', '/register'].includes(location.pathname) || location.pathname.includes('/cook');
 
