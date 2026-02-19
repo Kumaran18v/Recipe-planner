@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const ChefBot = () => {
-    const [isOpen, setIsOpen] = useState(false);
+const ChefBot = ({ isOpen, setIsOpen }) => {
+    // const [isOpen, setIsOpen] = useState(false); // Managed by parent now
     const [messages, setMessages] = useState([
         { id: 1, text: "Ciao! I'm your AI Chef. Ask me about substitutions, wine pairings, or cooking tips!", sender: 'bot' }
     ]);
@@ -31,7 +31,8 @@ const ChefBot = () => {
 
         try {
             // Call backend API
-            const response = await axios.post('http://localhost:8000/api/chat', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            const response = await axios.post(`${apiUrl}/api/chat`, {
                 message: userMessage.text
             });
 
@@ -95,8 +96,8 @@ const ChefBot = () => {
                                 >
                                     <div
                                         className={`max - w - [80 %] p - 3 rounded - 2xl text - sm leading - relaxed ${msg.sender === 'user'
-                                                ? 'bg-primary text-slate-900 rounded-tr-none font-medium'
-                                                : 'bg-white/10 text-slate-200 rounded-tl-none border border-white/5'
+                                            ? 'bg-primary text-slate-900 rounded-tr-none font-medium'
+                                            : 'bg-white/10 text-slate-200 rounded-tl-none border border-white/5'
                                             } `}
                                     >
                                         {msg.text}

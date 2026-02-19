@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getRecipeById } from '../api';
 import { getRecipeImage, getFallbackImage } from '../utils/imageUtils';
-import { ChevronLeft, ChevronRight, Check, Play, Clock, ArrowLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, Play, Clock, ArrowLeft, Mic, MicOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CookingMode = () => {
@@ -11,6 +11,54 @@ const CookingMode = () => {
     const [recipe, setRecipe] = useState(null);
     const [currentStep, setCurrentStep] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [isListening, setIsListening] = useState(false);
+    const recognitionRef = useRef(null);
+
+    // Initialize Speech Recognition
+    useEffect(() => {
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+                console.log("Voice command:", transcript);
+
+                if (transcript.includes('next')) {
+                    handleNext();
+                } else if (transcript.includes('previous') || transcript.includes('back')) {
+                    handlePrev();
+                }
+            };
+
+            recognition.onend = () => {
+                if (isListening) {
+                    recognition.start();
+                }
+            };
+
+            recognitionRef.current = recognition;
+        }
+
+        return () => {
+            if (recognitionRef.current) {
+                recognitionRef.current.stop();
+            }
+        };
+    }, [currentStep, isListening]); // Dedpendency on currentStep might cause re-bind issues, handled by ref in real app but simple here
+
+    const toggleVoiceControl = () => {
+        if (isListening) {
+            recognitionRef.current?.stop();
+            setIsListening(false);
+        } else {
+            recognitionRef.current?.start();
+            setIsListening(true);
+        }
+    };
 
     useEffect(() => {
         const loadRecipe = async () => {
@@ -50,19 +98,38 @@ const CookingMode = () => {
     const progress = ((currentStep + 1) / steps.length) * 100;
 
     const handleNext = () => {
-        if (currentStep < steps.length - 1) {
-            setCurrentStep(prev => prev + 1);
-        } else {
-            // Finish cooking
+        if (!steps.length) return;
+        setCurrentStep(prev => {
+            if (prev < steps.length - 1) return prev + 1;
             navigate(`/recipes/${id}`);
-        }
+            return prev;
+        });
     };
 
     const handlePrev = () => {
-        if (currentStep > 0) {
-            setCurrentStep(prev => prev - 1);
-        }
+        setCurrentStep(prev => (prev > 0 ? prev - 1 : prev));
     };
+
+    // Re-bind recognition on step change isn't needed if we use functional updates, 
+    // but the closure for handleNext calling navigate might be stale if defined outside.
+    // Ideally, we'd use a ref for the handlers or latest state, but simplified:
+    useEffect(() => {
+        if (recognitionRef.current) {
+            recognitionRef.current.onresult = (event) => {
+                const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+
+                if (transcript.includes('next')) {
+                    setCurrentStep(prev => {
+                        if (prev < steps.length - 1) return prev + 1;
+                        if (prev === steps.length - 1) navigate(`/recipes/${id}`); // Naive navigation trigger
+                        return prev;
+                    });
+                } else if (transcript.includes('previous') || transcript.includes('back')) {
+                    setCurrentStep(prev => (prev > 0 ? prev - 1 : prev));
+                }
+            };
+        }
+    }, [steps, id, navigate]);
 
     return (
         <div className="min-h-screen bg-bg-dark text-white flex flex-col relative overflow-hidden">
@@ -88,6 +155,16 @@ const CookingMode = () => {
                     >
                         <ArrowLeft size={24} className="text-slate-400" />
                     </button>
+
+                    <button
+                        onClick={toggleVoiceControl}
+                        className={`p-3 rounded-full transition-all flex items-center gap-2 ${isListening ? 'bg-red-500/20 text-red-400 animate-pulse' : 'bg-white/5 text-slate-400'}`}
+                        title="Voice Control"
+                    >
+                        {isListening ? <Mic size={20} /> : <MicOff size={20} />}
+                        <span className="text-xs font-bold uppercase hidden md:inline">{isListening ? 'Listening' : 'Voice Off'}</span>
+                    </button>
+
                     <div className="flex flex-col items-center">
                         <span className="text-sm text-primary font-bold tracking-widest uppercase">Cooking Mode</span>
                         <h2 className="text-lg font-heading hidden md:block">{recipe.title}</h2>

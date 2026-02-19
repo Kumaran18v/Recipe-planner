@@ -102,8 +102,8 @@ const RecipeTable = () => {
                 </div>
 
                 <div className="flex flex-col items-end gap-3">
-                    <div className="flex items-center gap-2 text-sm text-text-gray bg-white/5 px-4 py-2 rounded-full border border-white/10">
-                        <span className="font-bold text-white">{total}</span> Recipes Found
+                    <div className="flex items-center gap-2 text-sm text-text-gray bg-white/50 dark:bg-white/5 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10">
+                        <span className="font-bold text-slate-900 dark:text-white">{total}</span> Recipes Found
                     </div>
 
                     {/* Sorting Controls */}
@@ -112,13 +112,13 @@ const RecipeTable = () => {
                             <span className="text-text-gray">Sort by Rating:</span>
                             <button
                                 onClick={() => setSortOrder('asc')}
-                                className={`px-3 py-1 rounded-md border ${sortOrder === 'asc' ? 'bg-primary text-black border-primary' : 'bg-transparent text-white border-white/10 hover:bg-white/5'}`}
+                                className={`px-3 py-1 rounded-md border ${sortOrder === 'asc' ? 'bg-primary text-black border-primary' : 'bg-transparent text-slate-700 dark:text-white border-slate-200 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5'}`}
                             >
                                 Asc
                             </button>
                             <button
                                 onClick={() => setSortOrder('desc')}
-                                className={`px-3 py-1 rounded-md border ${sortOrder === 'desc' ? 'bg-primary text-black border-primary' : 'bg-transparent text-white border-white/10 hover:bg-white/5'}`}
+                                className={`px-3 py-1 rounded-md border ${sortOrder === 'desc' ? 'bg-primary text-black border-primary' : 'bg-transparent text-slate-700 dark:text-white border-slate-200 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5'}`}
                             >
                                 Desc
                             </button>
@@ -129,16 +129,16 @@ const RecipeTable = () => {
 
             {/* Pantry Toggle */}
             <div className="flex justify-center mb-6">
-                <div className="bg-white/5 p-1 rounded-xl flex gap-1 border border-white/10">
+                <div className="bg-white/50 dark:bg-white/5 p-1 rounded-xl flex gap-1 border border-slate-200 dark:border-white/10">
                     <button
                         onClick={() => setPantryMode(false)}
-                        className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${!pantryMode ? 'bg-primary text-black shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                        className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${!pantryMode ? 'bg-primary text-black shadow-lg' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
                     >
                         Browse & Filter
                     </button>
                     <button
                         onClick={() => setPantryMode(true)}
-                        className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${pantryMode ? 'bg-primary text-black shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                        className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${pantryMode ? 'bg-primary text-black shadow-lg' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
                     >
                         Smart Pantry
                     </button>
@@ -153,7 +153,7 @@ const RecipeTable = () => {
                     // Effect will trigger reload
                 }} />
             ) : (
-                <div className="glass-panel p-6 mb-8 border border-white/10 shadow-2xl bg-bg-card/50 backdrop-blur-xl rounded-2xl">
+                <div className="glass-panel p-6 mb-8 border border-slate-200 dark:border-white/10 shadow-2xl bg-white/50 dark:bg-bg-card/50 backdrop-blur-xl rounded-2xl">
                     <form onSubmit={handleSearch} className="flex gap-4 flex-wrap items-end">
                         <div className="flex flex-col gap-2 flex-grow min-w-[200px]">
                             <label className="text-xs text-primary font-bold uppercase tracking-wider">Search Title</label>
@@ -163,7 +163,7 @@ const RecipeTable = () => {
                                     placeholder="e.g. Pecan Pie"
                                     value={filters.title}
                                     onChange={e => setFilters({ ...filters, title: e.target.value })}
-                                    className="w-full pl-10 bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all py-3 shadow-inner"
+                                    className="w-full pl-10 bg-white/50 dark:bg-bg-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all py-3 shadow-inner placeholder:text-slate-500"
                                 />
                                 <Search className="absolute left-3 top-3.5 text-slate-500 group-focus-within:text-primary transition-colors" size={18} />
                             </div>
@@ -176,7 +176,7 @@ const RecipeTable = () => {
                                 placeholder="e.g. Southern"
                                 value={filters.cuisine}
                                 onChange={e => setFilters({ ...filters, cuisine: e.target.value })}
-                                className="w-full bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner"
+                                className="w-full bg-white/50 dark:bg-bg-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner placeholder:text-slate-500"
                             />
                         </div>
 
@@ -187,7 +187,7 @@ const RecipeTable = () => {
                                 placeholder=">= 4.5"
                                 value={filters.rating}
                                 onChange={e => setFilters({ ...filters, rating: e.target.value })}
-                                className="w-full bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner text-center"
+                                className="w-full bg-white/50 dark:bg-bg-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner text-center placeholder:text-slate-500"
                             />
                         </div>
 
@@ -198,7 +198,7 @@ const RecipeTable = () => {
                                 placeholder="<= 60"
                                 value={filters.total_time}
                                 onChange={e => setFilters({ ...filters, total_time: e.target.value })}
-                                className="w-full bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner text-center"
+                                className="w-full bg-white/50 dark:bg-bg-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner text-center placeholder:text-slate-500"
                             />
                         </div>
 
@@ -207,32 +207,7 @@ const RecipeTable = () => {
                             <select
                                 value={filters.diet}
                                 onChange={e => setFilters({ ...filters, diet: e.target.value })}
-                                className="w-full bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner cursor-pointer"
-                            >
-                                <option value="">Any</option>
-                                <option value="vegetarian">Vegetarian</option>
-                                <option value="vegan">Vegan</option>
-                                <option value="gluten-free">Gluten-Free</option>
-                            </select>
-                        </div>
-
-                        <div className="flex flex-col gap-2 flex-grow min-w-[200px]">
-                            <label className="text-xs text-primary font-bold uppercase tracking-wider">Exclude</label>
-                            <input
-                                type="text"
-                                placeholder="e.g. peanuts"
-                                value={filters.exclude}
-                                onChange={e => setFilters({ ...filters, exclude: e.target.value })}
-                                className="w-full bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner"
-                            />
-                        </div>
-
-                        <div className="flex flex-col gap-2 w-[160px]">
-                            <label className="text-xs text-primary font-bold uppercase tracking-wider">Dietary</label>
-                            <select
-                                value={filters.diet}
-                                onChange={e => setFilters({ ...filters, diet: e.target.value })}
-                                className="w-full bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner cursor-pointer"
+                                className="w-full bg-white/50 dark:bg-bg-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner cursor-pointer"
                             >
                                 <option value="">Any</option>
                                 <option value="vegetarian">Vegetarian</option>
@@ -248,7 +223,7 @@ const RecipeTable = () => {
                                 placeholder="e.g. peanuts, shellfish"
                                 value={filters.exclude}
                                 onChange={e => setFilters({ ...filters, exclude: e.target.value })}
-                                className="w-full bg-bg-dark border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner"
+                                className="w-full bg-white/50 dark:bg-bg-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent py-3 px-4 shadow-inner placeholder:text-slate-500"
                             />
                         </div>
 
@@ -257,7 +232,7 @@ const RecipeTable = () => {
                                 <Filter size={18} /> Filter
                             </button>
                             {searchMode && (
-                                <button type="button" onClick={handleClearSearch} className="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                <button type="button" onClick={handleClearSearch} className="flex-1 sm:flex-none bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-medium py-3 px-6 rounded-lg transition-colors">
                                     Clear
                                 </button>
                             )}
@@ -281,7 +256,7 @@ const RecipeTable = () => {
                         <div
                             key={recipe.id}
                             onClick={() => handleRowClick(recipe)}
-                            className="group relative bg-bg-card/50 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer hover:-translate-y-1"
+                            className="group relative bg-white/50 dark:bg-bg-card/50 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer hover:-translate-y-1"
                         >
                             {/* Decorative Header/Image */}
                             <div className="h-48 bg-gray-800 relative overflow-hidden">
@@ -309,17 +284,17 @@ const RecipeTable = () => {
                             </div>
 
                             <div className="p-6">
-                                <h3 className="text-xl font-heading font-bold text-white mb-2 line-clamp-1 group-hover:text-primary transition-colors">{recipe.title}</h3>
+                                <h3 className="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2 line-clamp-1 group-hover:text-primary transition-colors">{recipe.title}</h3>
 
                                 <div className="flex justify-between items-center text-sm text-slate-400 mt-4 pt-4 border-t border-white/5">
                                     <div className="flex items-center gap-4">
                                         <div className="flex flex-col">
                                             <span className="text-xs uppercase tracking-wider text-slate-500">Time</span>
-                                            <span className="font-medium text-slate-200">{recipe.total_time ? `${recipe.total_time}m` : '--'}</span>
+                                            <span className="font-medium text-slate-700 dark:text-slate-200">{recipe.total_time ? `${recipe.total_time}m` : '--'}</span>
                                         </div>
                                         <div className="flex flex-col">
                                             <span className="text-xs uppercase tracking-wider text-slate-500">Serves</span>
-                                            <span className="font-medium text-slate-200">{recipe.serves || '--'}</span>
+                                            <span className="font-medium text-slate-700 dark:text-slate-200">{recipe.serves || '--'}</span>
                                         </div>
                                     </div>
                                     <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
@@ -342,7 +317,7 @@ const RecipeTable = () => {
                         <select
                             value={limit}
                             onChange={e => setLimit(Number(e.target.value))}
-                            className="bg-transparent border-none text-white focus:ring-0 cursor-pointer font-medium"
+                            className="bg-transparent border-none text-slate-900 dark:text-white focus:ring-0 cursor-pointer font-medium"
                         >
                             <option value={10} className="bg-bg-card">10</option>
                             <option value={20} className="bg-bg-card">20</option>
@@ -354,17 +329,17 @@ const RecipeTable = () => {
                         <button
                             onClick={() => setPage(p => Math.max(1, p - 1))}
                             disabled={page === 1}
-                            className="p-2 rounded-full hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-white border border-white/10"
+                            className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-slate-900 dark:text-white border border-slate-200 dark:border-white/10"
                         >
                             <ChevronLeft size={24} />
                         </button>
-                        <span className="text-sm font-medium text-white bg-white/5 px-4 py-2 rounded-full border border-white/5">
+                        <span className="text-sm font-medium text-slate-900 dark:text-white bg-white/50 dark:bg-white/5 px-4 py-2 rounded-full border border-slate-200 dark:border-white/5">
                             Page <span className="text-primary">{page}</span> of {Math.ceil(total / limit)}
                         </span>
                         <button
                             onClick={() => setPage(p => p + 1)}
                             disabled={page >= Math.ceil(total / limit)}
-                            className="p-2 rounded-full hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-white border border-white/10"
+                            className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-slate-900 dark:text-white border border-slate-200 dark:border-white/10"
                         >
                             <ChevronRight size={24} />
                         </button>

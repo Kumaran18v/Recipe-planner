@@ -1,9 +1,10 @@
 from pydantic import BaseModel
-from typing import Optional, Dict, Any
+from typing import List, Optional, Dict, Any
 
-class RecipeBase(BaseModel):
+class Recipe(BaseModel):
+    id: int
+    title: str
     cuisine: Optional[str] = None
-    title: Optional[str] = "Untitled"
     rating: Optional[float] = None
     prep_time: Optional[int] = None
     cook_time: Optional[int] = None
@@ -12,55 +13,74 @@ class RecipeBase(BaseModel):
     nutrients: Optional[Dict[str, Any]] = None
     serves: Optional[str] = None
     url: Optional[str] = None
-    ingredients: Optional[list[str]] = None
-    instructions: Optional[list[str]] = None
+    ingredients: Optional[List[str]] = None
+    instructions: Optional[List[str]] = None
     image_url: Optional[str] = None
 
-class RecipeCreate(RecipeBase):
-    pass
-
-class Recipe(RecipeBase):
-    id: int
-
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class PaginatedRecipes(BaseModel):
     page: int
     limit: int
     total: int
-    data: list[Recipe]
+    data: List[Recipe]
 
 class ChatMessage(BaseModel):
     message: str
 
 class PantrySearch(BaseModel):
-    ingredients: list[str]
+    ingredients: List[str]
 
-class MealPlanBase(BaseModel):
+# --- Auth Schemas ---
+class UserBase(BaseModel):
+    email: str
+    full_name: Optional[str] = None
+
+class UserCreate(UserBase):
+    password: str
+
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    preferences: Optional[Dict[str, Any]] = None
+
+class User(UserBase):
+    id: int
+    preferences: Optional[Dict[str, Any]] = None
+    
+    class Config:
+        from_attributes = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    email: Optional[str] = None
+
+# --- User Specific ---
+class MealPlanCreate(BaseModel):
     date: str
     meal_type: str
     recipe_id: int
 
-class MealPlanCreate(MealPlanBase):
-    pass
-
-class MealPlan(MealPlanBase):
+class MealPlan(BaseModel):
     id: int
+    date: str
+    meal_type: str
+    recipe_id: int
     recipe: Optional[Recipe] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-class FavoriteBase(BaseModel):
+class FavoriteCreate(BaseModel):
     recipe_id: int
 
-class FavoriteCreate(FavoriteBase):
-    pass
-
-class Favorite(FavoriteBase):
+class Favorite(BaseModel):
     id: int
+    recipe_id: int
     recipe: Optional[Recipe] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True

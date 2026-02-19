@@ -5,8 +5,28 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Light Mode (Morning Brunch) */
+    --bg-dark: 255 255 255;
+    --bg-card: 247 248 250;
+    --bg-surface: 241 245 249;
+    --text-light: 15 23 42;
+    --text-gray: 71 85 105;
+    --primary: 245 158 11;
+  }
+
+  .dark {
+    /* Dark Mode (Midnight Chef) */
+    --bg-dark: 15 23 42;
+    --bg-card: 30 41 59;
+    --bg-surface: 17 24 39;
+    --text-light: 249 250 251;
+    --text-gray: 148 163 184;
+    --primary: 245 158 11;
+  }
+
   body {
-    @apply bg-bg-dark text-text-light font-body antialiased;
+    @apply bg-bg-dark text-text-light font-body antialiased transition-colors duration-300;
   }
 
   h1,
@@ -29,7 +49,7 @@
   }
 
   .glass-panel {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl;
+    @apply bg-white/70 dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl;
   }
 
   .glass-panel-hover {

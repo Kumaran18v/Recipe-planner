@@ -1,0 +1,106 @@
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { motion } from 'framer-motion';
+import { LogIn, Mail, Lock, ArrowRight } from 'lucide-react';
+
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const { login } = useAuth();
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setIsLoading(true);
+        try {
+            await login(email, password);
+            navigate('/');
+        } catch (err) {
+            setError('Invalid email or password');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-bg-dark flex items-center justify-center p-4 relative overflow-hidden">
+            <div className="absolute inset-0 z-0">
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 via-bg-dark to-secondary/10 opacity-30"></div>
+            </div>
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-bg-card/50 backdrop-blur-xl border border-white/10 p-8 rounded-2xl w-full max-w-md relative z-10 shadow-2xl"
+            >
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-heading font-bold text-white mb-2">Welcome Back</h2>
+                    <p className="text-text-gray">Sign in to continue your culinary journey</p>
+                </div>
+
+                {error && (
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg mb-6 text-sm text-center">
+                        {error}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                        <label className="text-sm text-text-gray block">Email Address</label>
+                        <div className="relative">
+                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                                placeholder="chef@example.com"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm text-text-gray block">Password</label>
+                        <div className="relative">
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                                placeholder="••••••••"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full btn-primary py-3 justify-center text-base disabled:opacity-50 disabled:cursor-not-allowed group"
+                    >
+                        {isLoading ? 'Signing In...' : (
+                            <>
+                                Sign In <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                            </>
+                        )}
+                    </button>
+                </form>
+
+                <div className="mt-8 text-center text-text-gray text-sm">
+                    Don't have an account? {' '}
+                    <Link to="/register" className="text-primary hover:text-amber-400 font-semibold transition-colors">
+                        Create Account
+                    </Link>
+                </div>
+            </motion.div>
+        </div>
+    );
+};
+
+export default Login;

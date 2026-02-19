@@ -55,7 +55,7 @@ const LandingPage = () => {
                         transition={{ duration: 0.8 }}
                         className="text-center mb-16"
                     >
-                        <h2 className="text-4xl md:text-5xl mb-6 font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">Why Choose Us?</h2>
+                        <h2 className="text-4xl md:text-5xl mb-6 font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Why Choose Us?</h2>
                         <p className="text-text-gray text-lg max-w-2xl mx-auto leading-relaxed">
                             We combine data science with culinary art to bring you the most powerful recipe discovery platform.
                         </p>
@@ -71,10 +71,10 @@ const LandingPage = () => {
                                 transition={{ duration: 0.5, delay: index * 0.15 }}
                                 className="glass-panel p-8 text-center hover:bg-white/10 transition-all duration-300 group border border-white/5 hover:border-primary/30"
                             >
-                                <div className="mb-6 bg-bg-surface w-16 h-16 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-black/20 text-white border border-white/5">
+                                <div className="mb-6 bg-bg-surface w-16 h-16 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-black/5 dark:shadow-black/20 text-slate-900 dark:text-white border border-slate-200 dark:border-white/5">
                                     {feature.icon}
                                 </div>
-                                <h3 className="text-2xl mb-3 font-heading text-white group-hover:text-primary transition-colors">{feature.title}</h3>
+                                <h3 className="text-2xl mb-3 font-heading text-slate-900 dark:text-white group-hover:text-primary transition-colors">{feature.title}</h3>
                                 <p className="text-text-gray text-base leading-relaxed">{feature.description}</p>
                             </motion.div>
                         ))}
@@ -111,10 +111,10 @@ const LandingPage = () => {
                                 whileHover={{ y: -10 }}
                                 className="relative z-10 glass-panel p-8 rounded-2xl w-full max-w-xs border border-white/5 hover:border-primary/20 transition-all duration-300 bg-bg-card"
                             >
-                                <div className="text-6xl font-heading text-white/5 absolute -top-8 left-8 select-none font-bold">
+                                <div className="text-6xl font-heading text-slate-200 dark:text-white/5 absolute -top-8 left-8 select-none font-bold">
                                     {item.step}
                                 </div>
-                                <h3 className="text-2xl mb-2 mt-4 relative z-10 font-heading font-bold">{item.title}</h3>
+                                <h3 className="text-2xl mb-2 mt-4 relative z-10 font-heading font-bold text-slate-900 dark:text-white">{item.title}</h3>
                                 <p className="text-text-gray relative z-10">{item.desc}</p>
                             </motion.div>
                         ))}
@@ -126,7 +126,7 @@ const LandingPage = () => {
             <section className="py-24 bg-gradient-to-b from-bg-dark to-primary/5 text-center px-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-overlay"></div>
                 <div className="container mx-auto relative z-10">
-                    <h2 className="text-4xl lg:text-6xl font-heading font-bold mb-8 max-w-4xl mx-auto leading-tight">
+                    <h2 className="text-4xl lg:text-6xl font-heading font-bold mb-8 max-w-4xl mx-auto leading-tight text-slate-900 dark:text-white">
                         Ready to Cook Something <span className="text-primary italic">Amazing?</span>
                     </h2>
                     <motion.button
@@ -149,7 +149,7 @@ const LandingPage = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={handleSurpriseMe}
-                        className="mt-6 md:mt-0 block md:inline-block md:ml-4 text-white hover:text-primary font-medium underline transition-colors"
+                        className="mt-6 md:mt-0 block md:inline-block md:ml-4 text-slate-900 dark:text-white hover:text-primary font-medium underline transition-colors"
                     >
                         Surprise Me!
                     </motion.button>
