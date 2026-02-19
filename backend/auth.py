@@ -3,10 +3,13 @@ from typing import Optional
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-# Secret key for signing JWTs (in production, use environment variable)
-SECRET_KEY = "supersecretkey_change_this_updated"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 300 # 5 hours for dev
+import os
+
+# Secret key for signing JWTs
+# In production, this MUST be set to a secure random string
+SECRET_KEY = os.getenv("SECRET_KEY", "supersecretkey_change_this_updated")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "300"))
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
